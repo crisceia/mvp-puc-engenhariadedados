@@ -363,7 +363,7 @@ Portanto, a proporção de registros potencialmente atípicos foi maior entre os
 
 Esse resultado representa uma diferença na distribuição dos registros potencialmente atípicos entre os dois tipos de compra e não permite, isoladamente, estabelecer uma relação causal entre o tipo de compra e o preço.  
 
-#### 4c. Como os registros potencialmente atípicos em relação às demais compras do mesmo CATMAT se distribuem por modalidade de compra?
+#### P4c. Como os registros potencialmente atípicos em relação às demais compras do mesmo CATMAT se distribuem por modalidade de compra?  
 
 A análise por modalidade apresentou diferenças na proporção de registros potencialmente atípicos. Como critério operacional deste MVP, modalidades com **menos de 100 registros elegíveis** foram classificadas como de baixa representatividade, enquanto modalidades com 100 ou mais registros elegíveis foram consideradas de **representatividade adequada** para a análise.  
 
