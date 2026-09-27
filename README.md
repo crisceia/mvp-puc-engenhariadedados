@@ -16,7 +16,7 @@ Este arquivo explicativo está estruturado da seguinte forma:
 6. **Referências**: reúne as fontes utilizadas para a obtenção e compreensão dos dados, bem como referências relacionadas às abordagens utilizadas no projeto.  
 
 ## Contexto de Negócios e Perguntas
----  
+
 O Banco de Preços em Saúde (BPS) é uma plataforma gerida pelo Ministério da Saúde para registrar informações sobre compras de medicamentos e dispositivos médicos realizadas por instituições públicas e privadas. A base do BPS está disponível no [Portal de Dados Abertos do SUS](https://dadosabertos.saude.gov.br/dataset/bps) e contém informações sobre os itens adquiridos, preços, quantidades, instituições compradoras, fornecedores e características das compras, além do Código BR, também conhecido como CATMAT, utilizado para padronizar e identificar os itens e facilitar a comparação de preços.  
 
 A disponibilidade dessas informações permite explorar como os preços registrados para um mesmo item variam entre diferentes compras e ao longo do tempo. Essa análise é relevante porque a comparação de preços depende de uma identificação padronizada dos itens e de dados organizados de forma que diferentes registros possam ser analisados em conjunto.  
@@ -41,7 +41,7 @@ A partir desse contexto, o MVP buscou responder às seguintes perguntas:
 Essas perguntas orientaram as etapas do _pipeline_, desde a seleção e preparação dos dados até a modelagem e as análises realizadas na camada final. Dessa forma, a estrutura de dados está diretamente relacionada às necessidades de análise definidas para o problema.  
 
 ## Origem dos Dados  
----  
+  
 Os dados foram coletados manualmente no [Portal de Dados Abertos do SUS](https://dadosabertos.saude.gov.br), na página do conjunto de dados [Banco de Preços em Saúde - BPS](https://dadosabertos.saude.gov.br/dataset/bps), onde são disponibilizados os dados em formatos de arquivo CSV, JSON e XML, bem como o link para acesso via API, e o dicionário de dados e metadados.  
 
 Neste MVP, foram considerados os arquivos em formato CSV referentes ao BPS dos anos 2024, 2025 e 2026, como base de dados; e o dicionário de dados e metadados em formato PDF, como fonte de informações gerais sobre os dados. Todos estes arquivos datam de 20/09/2026. Por esta razão, é importante mencionar que atualizações podem ser identificadas diretamente na fonte dos dados posteriormente e que o arquivo referente ao ano 2026 apresenta compras realizadas até o dia 17/09/2026.  
@@ -51,7 +51,7 @@ Os arquivos originais supracitados estão disponíveis na pasta [_arquivos origi
 **Licença de uso dos dados**: A página do conjunto de dados BPS não informa atualmente uma licença de uso específica destes dados. Entretanto, o Portal de Dados Abertos do SUS (onde ela está contida) possui uma [Cartilha de Dados Abertos](https://dadosabertos.saude.gov.br/Cartilha-de-Dados-Abertos-do-SUS_ISBN.pdf), na qual consta a permissão irrestrita de reuso das bases de dados publicadas em formato aberto. _Seção "Princípios e diretrizes da política de Dados Abertos", pág. 11, item 4_.  
 
 ## _Pipeline_ de Dados  
----  
+  
 Para a construção do _pipeline_ do dados, foi considerada a Arquitetura Medalhão, isto é, o padrão de organização em camadas adotado pelo Databricks, onde cada camada contém:  
 - Camada _bronze_: o dado bruto salvo no ambiente nuvem, em _Delta Tables_.  
 - Camada _silver_: o dado tratado e padronizado.  
@@ -228,7 +228,7 @@ Abaixo, seguem evidências das tabelas criadas na camada _gold_, bem como amostr
 ![Visão geral - Tabela "fato_compra"](./_imagens/visao_geral_fato_compra.png "Visão geral - Tabela 'fato_compra'")
 
 ## Análise dos Dados  
----   
+   
 A análise dos dados foi realizada sobre a camada _gold_, utilizando a `fato_compra`, as dimensões do modelo e as _views_ analíticas `vw_registros_elegiveis` e `vw_potenciais_outliers`. As consultas e as respectivas saídas constam no _notebook_ "[_04_Análise de Dados](url)".
 
 Para as análises de preço, foram considerados registros com `vl_preco_unitario` preenchido e positivo e associados a CATMATs com pelo menos cinco registros válidos, conforme critério operacional definido para este MVP. A identificação de preços potencialmente atípicos foi realizada individualmente por CATMAT, utilizando o Intervalo Interquartil (IQR), conforme descrito na etapa de preparação da camada _gold_.  
@@ -418,7 +418,7 @@ A análise pelo IQR identificou CATMATs com ampla dispersão de preços e a apli
 As análises por tipo, modalidade e fornecedor acrescentam diferentes perspectivas para a investigação dos registros potencialmente atípicos. Dessa forma, o MVP permite transformar os registros do BPS em uma estrutura analítica capaz de comparar preços entre compras do mesmo CATMAT, identificar padrões de dispersão e sinalizar registros potencialmente atípicos para investigação posterior, preservando os dados originais e evitando a interpretação automática desses registros como erros ou irregularidades.  
 
 ## Autoavaliação
----  
+  
 Considero que os objetivos definidos para este MVP foram alcançados. O projeto permitiu construir um _pipeline_ de dados em arquitetura de camadas _bronze_, _silver_ e _gold_, aplicar etapas de tratamento e validação da qualidade dos dados e estruturar um modelo dimensional para análise dos registros do Banco de Preços em Saúde. A partir dessa estrutura, foi possível desenvolver consultas analíticas voltadas à evolução dos preços, à dispersão dos preços por CATMAT e à identificação e distribuição de registros potencialmente atípicos.  
 
 A escolha do tema também foi um fator de motivação para a realização do projeto. A análise de preços, a identificação de exceções e a investigação de possíveis situações que merecem atenção possuem alguma similaridade com atividades que já realizei no contexto de Auditoria Interna, embora o objetivo e a abordagem sejam diferentes neste projeto. Além disso, foi interessante e importante ter um primeiro contato com a plataforma Databricks.  
@@ -428,7 +428,7 @@ A principal dificuldade encontrada foi conciliar a necessidade de aprofundar as 
 Como trabalhos futuros, o projeto poderia ser ampliado com a inclusão de novas fontes de dados e variáveis que permitissem contextualizar melhor as diferenças de preços, além do aprofundamento das análises de qualidade e das regras de identificação de registros potencialmente atípicos. Também seria possível desenvolver novas análises sobre fornecedores, instituições, categorias de produtos e evolução temporal, bem como automatizar de forma mais completa a ingestão dos arquivos e a atualização das camadas do _pipeline_.
 
 ## Referências
----
+
 1. **Banco de Preços em Saúde (BPS)**. Acesso à informação disponibilizada pelo Ministério da Saúde, em https://www.gov.br/saude/pt-br/acesso-a-informacao/banco-de-precos.  
 2. **Passo-a-passo do BPS - Consulta de códigos BR no BPS**. Introdução ao BPS e nomenclatura de medicamentos e dispositivos médicos, disponibilizado entre os treinamentos de BPS pelo Ministério da Saúde, em https://www.gov.br/saude/pt-br/acesso-a-informacao/gestao-do-sus/economia-da-saude/banco-de-precos-em-saude/treinamentos/arquivos/4PassoapassoparaconsultadecdigoBR.pdf.  
 3. **Dados e Recursos do BPS**. Origem dos dados e dicionário de dados disponilizado no Portal de Dados Abertos do SUS, em https://dadosabertos.saude.gov.br/dataset/bps.  
